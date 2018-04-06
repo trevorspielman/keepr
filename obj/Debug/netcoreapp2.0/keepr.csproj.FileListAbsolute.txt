@@ -1,0 +1,10 @@
+/source/codeworks/FinalProject/keepr/bin/Debug/netcoreapp2.0/keepr.deps.json
+/source/codeworks/FinalProject/keepr/bin/Debug/netcoreapp2.0/keepr.runtimeconfig.json
+/source/codeworks/FinalProject/keepr/bin/Debug/netcoreapp2.0/keepr.runtimeconfig.dev.json
+/source/codeworks/FinalProject/keepr/bin/Debug/netcoreapp2.0/keepr.dll
+/source/codeworks/FinalProject/keepr/bin/Debug/netcoreapp2.0/keepr.pdb
+/source/codeworks/FinalProject/keepr/obj/Debug/netcoreapp2.0/keepr.csproj.CoreCompileInputs.cache
+/source/codeworks/FinalProject/keepr/obj/Debug/netcoreapp2.0/keepr.AssemblyInfoInputs.cache
+/source/codeworks/FinalProject/keepr/obj/Debug/netcoreapp2.0/keepr.AssemblyInfo.cs
+/source/codeworks/FinalProject/keepr/obj/Debug/netcoreapp2.0/keepr.dll
+/source/codeworks/FinalProject/keepr/obj/Debug/netcoreapp2.0/keepr.pdb
