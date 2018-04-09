@@ -8,15 +8,15 @@
 -- );
 
 -- CREATE TABLE vaults (
---     id VARCHAR(255) NOT NULL,
---     name VARCHAR(20) NOT NULL,
---     description VARCHAR(255) NOT NULL,
---     userId VARCHAR(255) NOT NULL,
---     INDEX userId (userId),
---     FOREIGN KEY (userId)
---         REFERENCES users(id)
---         ON DELETE CASCADE,  
---     PRIMARY KEY (id)
+    -- id VARCHAR(255) NOT NULL,
+    -- name VARCHAR(20) NOT NULL,
+    -- description VARCHAR(255) NOT NULL,
+    -- userId VARCHAR(255) NOT NULL,
+    -- INDEX userId (userId),
+    -- FOREIGN KEY (userId)
+    --     REFERENCES users(id)
+    --     ON DELETE CASCADE,  
+    -- PRIMARY KEY (id)
 -- );
 
 -- CREATE TABLE keeps (

@@ -94,7 +94,6 @@ namespace keepr.Repositories
         return user;
       }
       return null;
-
     }
 
     internal UserReturnModel GetUserByEmail(string email)
