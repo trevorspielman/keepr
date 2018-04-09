@@ -56,8 +56,15 @@ namespace keepr.Repositories
       {
         Id = vault.Id,
         Name = vault.Name,
-        Description = vault.Description
+        Description = vault.Description,
+        UserId = vault.UserId
       };
+    }
+    public IEnumerable<Vault> GetByUserId(string userId)
+    {
+      return _db.Query<Vault>(@"
+      SELECT * FROM vaults WHERE userId = @UserId
+      ", new { UserId = userId });
     }
 
     public Vault UpdateVault(Vault vault)

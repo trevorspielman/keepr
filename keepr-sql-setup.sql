@@ -55,6 +55,9 @@
 --         ON DELETE CASCADE
 -- )
 
+-- ALTER TABLE keeps
+-- ALTER saves SET DEFAULT 0
+
 
 -- USE THIS LINE FOR GET KEEPS BY VAULTID
 -- SELECT * FROM vaultkeeps vk
