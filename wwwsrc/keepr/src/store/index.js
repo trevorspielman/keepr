@@ -25,7 +25,8 @@ export default new vuex.Store({
   state: {
     user: {},
     keeps: [],
-    vaults: []
+    vaults: [],
+    vault: {}
   },
   mutations: {
     updateUser(state, payload) {
@@ -36,6 +37,9 @@ export default new vuex.Store({
     },
     setMyVaults(state, payload) {
       state.vaults = payload
+    },
+    setVault(state, payload) {
+      state.vault = payload
     }
 
   },
@@ -74,6 +78,15 @@ export default new vuex.Store({
       myDB.post('vaults', payload)
         .then(res => {
           dispatch('getMyVaults', res.data.userId)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    getVault({ commit, dispatch, state }, payload) {
+      myDB.get('vaults/' + payload)
+        .then(res => {
+          commit('setVault', res.data)
         })
         .catch(err => {
           console.log(err)

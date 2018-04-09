@@ -9,7 +9,10 @@
       </div>
     </div>
     <div class="row" v-for="vault in vaults">
-      <vault :vault="vault"></vault>
+      <router-link :to="{ name: 'Vault', params: { vaultId: vault.id } }">
+        <h3>{{vault.name}}</h3>
+      </router-link>
+      <p>{{vault.description}}</p>
     </div>
     <!-- Create Vault Modal -->
     <div class="modal fade" id="createVault" tabindex="-1" role="dialog">
