@@ -12,6 +12,7 @@ namespace keepr.Models
     [Required]
     public string Name { get; set; }
     public string Description { get; set; }
+    public string Picture { get; set; }
     public int Saves { get; set; }
     public string UserId { get; set; }
   }
@@ -20,7 +21,8 @@ namespace keepr.Models
     [Required]
     public string Name { get; set; }
     public string Description { get; set; }
-    public string VaultId { get; set; }
+    public string Picture { get; set; }
+
     public string UserId { get; set; }
   }
 

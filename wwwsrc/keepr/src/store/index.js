@@ -26,7 +26,8 @@ export default new vuex.Store({
     user: {},
     keeps: [],
     vaults: [],
-    vault: {}
+    vault: {},
+    vaultKeeps: [],
   },
   mutations: {
     updateUser(state, payload) {
@@ -40,6 +41,9 @@ export default new vuex.Store({
     },
     setVault(state, payload) {
       state.vault = payload
+    },
+    setVaultKeeps(state, payload){
+      state.vaultKeeps = payload
     }
 
   },
@@ -56,8 +60,9 @@ export default new vuex.Store({
         })
     },
     createKeep({ commit, dispatch, state }, payload) {
-      myDB.post('keeps', payload)
+      myDB.post('keeps', payload.keep)
         .then(res => {
+          dispatch('createVaultKeep', { keepId: res.data.id, vaultId: payload })
           dispatch('getKeeps')
         })
         .catch(err => {
@@ -91,6 +96,27 @@ export default new vuex.Store({
         .catch(err => {
           console.log(err)
         })
+    },
+
+    createVaultKeep({ commit, dispatch, state }, payload) {
+      myDB.post('vaultkeeps', { userId: state.user.id, keepId: payload.keepId, vaultId: payload.vaultId.vault })
+        .then(res => {
+          console.log(res.data)
+          // dispatch('getVaultKeeps', res.data.vaultId)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    getVaultKeeps({commit, dispatch, state}, payload){
+      myDB.get('vaultkeeps/' + payload, payload)
+      .then(res=>{
+        console.log(res.data)
+        commit('setVaultKeeps', res.data)
+      })
+      .catch(err => {
+        console.log(err)
+      })
     },
 
 

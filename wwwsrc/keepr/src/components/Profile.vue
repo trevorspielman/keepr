@@ -5,7 +5,7 @@
       <div class="col-sm-12">
         <h1>Welcome {{user.username}}</h1>
         <button class="btn btn-info" data-toggle="modal" data-target="#createVault">Create Vault</button>
-        <button class="btn btn-danger"  data-toggle="modal" data-target="#createKeep">Create Keep</button>
+        <button class="btn btn-danger" data-toggle="modal" data-target="#createKeep">Create Keep</button>
       </div>
     </div>
     <div class="row" v-for="vault in vaults">
@@ -49,6 +49,9 @@
               <input type="text" v-model="newKeep.name" placeholder="Name">
               <textarea v-model="newKeep.description" placeholder="Description" rows="4"></textarea>
               <input type="text" v-model="newKeep.picture" placeholder="Image Url">
+              <select class="custom-select" v-model="tempVaultId.vaultId">
+                <option v-for="vault in vaults" :value="vault.id" >{{vault.name}}</option>
+              </select>
               <button type="submit" class="btn btn-primary">Add Keep</button>
             </form>
           </div>
@@ -73,21 +76,24 @@
           name: "",
           description: ""
         },
-        newKeep:{
+        newKeep: {
           name: "",
           description: "",
-          picture: ""
+          picture: "",
+        },
+        tempVaultId: {
+          vaultId: ""
         }
       }
     },
     methods: {
-      createVault(){
+      createVault() {
         this.newVault.UserId = this.$store.state.user.id
         this.$store.dispatch('createVault', this.newVault)
       },
-      createKeep(){
+      createKeep() {
         this.newKeep.UserId = this.$store.state.user.id
-        this.$store.dispatch('createKeep', this.newKeep)
+        this.$store.dispatch('createKeep', {keep: this.newKeep, vault: this.tempVaultId.vaultId})
       }
     },
     computed: {

@@ -6,16 +6,21 @@
         <h3>{{vault.name}}</h3>
         <p>{{vault.description}}</p>
       </div>
+      <div class="row" v-for="keep in vaultKeeps">
+        <keep :keep="keep"></keep>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
   import navbar from "./Navbar"
+  import keep from "./Keep"
   export default {
     name: 'Vault',
     mounted() {
       this.$store.dispatch("getVault", this.$route.params.vaultId)
+      this.$store.dispatch("getVaultKeeps", this.$route.params.vaultId)
     },
     data() {
       return {
@@ -28,10 +33,14 @@
     computed: {
       vault() {
         return this.$store.state.vault
+      },
+      vaultKeeps(){
+        return this.$store.state.vaultKeeps
       }
     },
     components: {
       navbar,
+      keep
     }
   }
 </script>
