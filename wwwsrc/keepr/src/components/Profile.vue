@@ -4,10 +4,53 @@
       <navbar></navbar>
       <div class="col-sm-12">
         <h1>Welcome {{user.username}}</h1>
+        <button class="btn btn-info" data-toggle="modal" data-target="#createVault">Create Vault</button>
+        <button class="btn btn-danger"  data-toggle="modal" data-target="#createKeep">Create Keep</button>
       </div>
     </div>
     <div class="row" v-for="vault in vaults">
       <vault :vault="vault"></vault>
+    </div>
+    <!-- Create Vault Modal -->
+    <div class="modal fade" id="createVault" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Create a New Vault</h5>
+            <button type="button" class="close" data-dismiss="modal">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="submit" @submit.prevent="createVault">
+              <input type="text" v-model="newVault.name" placeholder="Name">
+              <textarea v-model="newVault.description" placeholder="Description" rows="4"></textarea>
+              <button type="submit" class="btn btn-primary">Add Vault</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Create Keep Modal -->
+    <div class="modal fade" id="createKeep" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Create a New Keep</h5>
+            <button class="close" data-dismiss="modal">
+              <span>&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="submit" @submit.prevent="createKeep">
+              <input type="text" v-model="newKeep.name" placeholder="Name">
+              <textarea v-model="newKeep.description" placeholder="Description" rows="4"></textarea>
+              <input type="text" v-model="newKeep.picture" placeholder="Image Url">
+              <button type="submit" class="btn btn-primary">Add Keep</button>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -23,22 +66,39 @@
     },
     data() {
       return {
+        newVault: {
+          name: "",
+          description: ""
+        },
+        newKeep:{
+          name: "",
+          description: "",
+          picture: ""
+        }
       }
     },
     methods: {
+      createVault(){
+        this.newVault.UserId = this.$store.state.user.id
+        this.$store.dispatch('createVault', this.newVault)
+      },
+      createKeep(){
+        this.newKeep.UserId = this.$store.state.user.id
+        this.$store.dispatch('createKeep', this.newKeep)
+      }
     },
     computed: {
       user() {
         return this.$store.state.user
       },
-      vaults(){
+      vaults() {
         return this.$store.state.vaults
       },
     },
     beforeRouteUpdate(to, from, next) {
-            this.getMyVaults = this.getMyVaults(to.params.profileId)
-            next()
-        },
+      this.getMyVaults = this.getMyVaults(to.params.profileId)
+      next()
+    },
     components: {
       navbar,
       vault

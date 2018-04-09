@@ -6,11 +6,13 @@
 </template>
 
 <script>
-export default {
-  name: 'App'
-}
+  export default {
+    name: 'App',
+    mounted() {
+      this.$store.dispatch('authenticate')
+    }
+  }
 </script>
 
 <style>
-
 </style>

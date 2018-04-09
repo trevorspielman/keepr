@@ -25,6 +25,9 @@
 
     },
     computed: {
+      user(){
+        return this.$store.state.user
+      },
       keeps(){
         return this.$store.state.keeps
       },

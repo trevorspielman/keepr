@@ -14,7 +14,7 @@ export default new Router({
       component: Home
     },
     {
-      path:'/profile',
+      path:'/profile/:profileId',
       name: 'Profile',
       component: Profile
       }

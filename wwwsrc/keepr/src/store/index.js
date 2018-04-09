@@ -34,7 +34,7 @@ export default new vuex.Store({
     setKeeps(state, payload) {
       state.keeps = payload
     },
-    setMyVaults(state, payload){
+    setMyVaults(state, payload) {
       state.vaults = payload
     }
 
@@ -47,12 +47,36 @@ export default new vuex.Store({
         .then(res => {
           commit('setKeeps', res.data)
         })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    createKeep({ commit, dispatch, state }, payload) {
+      myDB.post('keeps', payload)
+        .then(res => {
+          dispatch('getKeeps')
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
     //Vault Actions
     getMyVaults({ commit, dispatch, state }, payload) {
       myDB.get('vaults/user/' + payload, payload)
         .then(res => {
           commit('setMyVaults', res.data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    createVault({ commit, dispatch, state }, payload) {
+      myDB.post('vaults', payload)
+        .then(res => {
+          dispatch('getMyVaults', res.data.userId)
+        })
+        .catch(err => {
+          console.log(err)
         })
     },
 
