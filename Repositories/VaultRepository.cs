@@ -14,7 +14,7 @@ namespace keepr.Repositories
     {
       _db = db;
     }
-    public Vault Add(Vault vaultData)
+    public Vault Add(CreateVault vaultData)
     {
       Guid g;
       g = Guid.NewGuid();
@@ -24,23 +24,26 @@ namespace keepr.Repositories
         Id = id,
         Name = vaultData.Name,
         Description = vaultData.Description,
+        UserId = vaultData.UserId
       };
       int success = _db.Execute(@"
       INSERT INTO vaults (
           id,
           name,
-          description
-              ) 
-          VALUES (@Id, @Name, @Description)", vault);
+          description,
+          userId
+              )
+          VALUES (@Id, @Name, @Description, @UserId)", vault);
       if (success < 1)
       {
         throw new Exception("Vault already Created");
-      }
+      };
       return new Vault()
       {
         Id = vault.Id,
         Name = vault.Name,
-        Description = vault.Description
+        Description = vault.Description,
+        UserId = vault.UserId
       };
     }
 
@@ -61,8 +64,9 @@ namespace keepr.Repositories
     {
       var i = _db.Execute(@"
       UPDATE vaults SET
-      name = @Name
-      description = @Description
+      name = @Name,
+      description = @Description,
+      userId = @UserId
       WHERE id = @Id
       ", vault);
       if (i > 0)

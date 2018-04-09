@@ -9,21 +9,22 @@ using keepr.Models;
 namespace keepr.Controllers
 {
   [Route("api/[controller]")]
-  public class VaultController : Controller
+  public class VaultsController : Controller
   {
     private readonly VaultRepository _repo;
 
-    public VaultController(VaultRepository repo)
+    public VaultsController(VaultRepository repo)
     {
       _repo = repo;
     }
 
     [HttpPost]
-    public Vault addVault([FromBody]Vault vault)
+    public Vault addVault([FromBody]CreateVault vaultData)
     {
       if (ModelState.IsValid)
       {
-        return _repo.Add(vault);
+        Vault vault = _repo.Add(vaultData);
+        return vault;
       }
       System.Console.WriteLine("Vault Not Added");
       return null;

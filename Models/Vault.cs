@@ -12,5 +12,14 @@ namespace keepr.Models
     [Required]
     public string Name { get; set; }
     public string Description { get; set; }
+    public string UserId {get; set;}
   }
+  public class CreateVault
+  {
+    [Required]
+    public string Name { get; set; }
+    public string Description { get; set; }
+    public string UserId {get; set;}
+  }
+
 }

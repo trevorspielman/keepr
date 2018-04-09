@@ -85,7 +85,7 @@ namespace keepr.Repositories
     {
       var i = _db.Execute(@"
       UPDATE users SET
-      email = @Email
+      email = @Email,
       username = @Username
       WHERE id = @Id
       ", userData);
