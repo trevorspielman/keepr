@@ -18,6 +18,12 @@ namespace keepr.Controllers
       _repo = repo;
     }
 
+    [HttpGet]
+    public IEnumerable<Keep> GetKeeps()
+    {
+      return _repo.GetKeeps();
+    }
+
     [HttpPost]
     public Keep addKeep([FromBody]CreateKeep keepData)
     {

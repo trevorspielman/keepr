@@ -6,7 +6,7 @@ import router from '../router'
 var production = !window.location.host.includes('localhost')
 var baseUrl = production ? '//brewbros.herokuapp.com/' : '//localhost:5000/'
 
-var ourDB = axios.create({
+var myDB = axios.create({
   baseURL: baseUrl + 'api/',
   timeout: 10000,
   withCredentials: true
@@ -23,15 +23,42 @@ vue.use(vuex)
 
 export default new vuex.Store({
   state: {
-    user: {}
+    user: {},
+    keeps: [],
+    vaults: []
   },
   mutations: {
     updateUser(state, payload) {
       state.user = payload
     },
+    setKeeps(state, payload) {
+      state.keeps = payload
+    },
+    setMyVaults(state, payload){
+      state.vaults = payload
+    }
 
   },
   actions: {
+
+    //Keeps Actions
+    getKeeps({ commit, dispatch, state }) {
+      myDB.get('keeps')
+        .then(res => {
+          commit('setKeeps', res.data)
+        })
+    },
+    //Vault Actions
+    getMyVaults({ commit, dispatch, state }, payload) {
+      myDB.get('vaults/user/' + payload, payload)
+        .then(res => {
+          commit('setMyVaults', res.data)
+        })
+    },
+
+
+
+    //User Auth Methods
     createUser({ commit, dispatch, state }, payload) {
       auth.post('register', payload)
         .then(res => {
@@ -49,7 +76,7 @@ export default new vuex.Store({
       auth.post('login', payload)
         .then(res => {
           commit('updateUser', res.data)
-          router.push({ name: 'Profile' })
+          router.push({ name: 'Profile', params: { profileId: state.user.id } })
         })
         .catch(err => {
           console.error(err)

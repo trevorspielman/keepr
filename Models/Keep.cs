@@ -13,7 +13,6 @@ namespace keepr.Models
     public string Name { get; set; }
     public string Description { get; set; }
     public int Saves { get; set; }
-    public string VaultId { get; set; }
     public string UserId { get; set; }
   }
   public class CreateKeep

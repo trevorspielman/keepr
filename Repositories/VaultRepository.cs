@@ -63,8 +63,8 @@ namespace keepr.Repositories
     public IEnumerable<Vault> GetByUserId(string userId)
     {
       return _db.Query<Vault>(@"
-      SELECT * FROM vaults WHERE userId = @UserId
-      ", new { UserId = userId });
+      SELECT * FROM vaults WHERE userId = @userId
+      ", new { userId });
     }
 
     public Vault UpdateVault(Vault vault)

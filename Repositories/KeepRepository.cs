@@ -14,6 +14,11 @@ namespace keepr.Repositories
     {
       _db = db;
     }
+    public IEnumerable<Keep> GetKeeps()
+    {
+      return _db.Query<Keep>("SELECT * FROM keeps");
+    }
+
     public Keep Add(CreateKeep keepData)
     {
       Guid g;
@@ -25,17 +30,15 @@ namespace keepr.Repositories
         Name = keepData.Name,
         Description = keepData.Description,
         UserId = keepData.UserId,
-        VaultId = keepData.VaultId
       };
       int success = _db.Execute(@"
       INSERT INTO keeps (
           id,
           name,
           description,
-          userId,
-          vaultId
+          userId
               )
-          VALUES (@Id, @Name, @Description, @UserId, @VaultId)", keep);
+          VALUES (@Id, @Name, @Description, @UserId)", keep);
       if (success < 1)
       {
         throw new Exception("Keep already Created");
@@ -47,7 +50,6 @@ namespace keepr.Repositories
         Description = keep.Description,
         Saves = 0,
         UserId = keep.UserId,
-        VaultId = keep.VaultId
       };
     }
 
@@ -63,7 +65,6 @@ namespace keepr.Repositories
         Description = keep.Description,
         Saves = keep.Saves,
         UserId = keep.UserId,
-        VaultId = keep.VaultId
       };
     }
     // public IEnumerable<Keep> GetByUserId(string userId)
@@ -86,8 +87,7 @@ namespace keepr.Repositories
       name = @Name,
       description = @Description,
       saves = @Saves,
-      userId = @UserId,
-      vaultId = @VaultId
+      userId = @UserId
       WHERE id = @Id
       ", keep);
       if (i > 0)
