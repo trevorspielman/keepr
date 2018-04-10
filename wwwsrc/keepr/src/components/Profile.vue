@@ -68,7 +68,7 @@
     name: 'Profile',
     mounted() {
       this.$store.dispatch('authenticate')
-      this.$store.dispatch("getMyVaults", this.$route.params.profileId)
+      this.$store.dispatch("getMyVaults", this.$store.state.user.id)
     },
     data() {
       return {

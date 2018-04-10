@@ -18,9 +18,11 @@
   import keep from "./Keep"
   export default {
     name: 'Vault',
+    props: ['keep'],
     mounted() {
       this.$store.dispatch("getVault", this.$route.params.vaultId)
-      this.$store.dispatch("getVaultKeeps", this.$route.params.vaultId)
+      // this.$store.dispatch("getVaultKeeps", this.$store.state.vault.id)
+      this.$store.dispatch("getMyVaults", this.$store.state.user.id)
     },
     data() {
       return {
@@ -36,7 +38,10 @@
       },
       vaultKeeps(){
         return this.$store.state.vaultKeeps
-      }
+      },
+      vaults() {
+        return this.$store.state.vaults
+      },
     },
     components: {
       navbar,

@@ -12,9 +12,11 @@
 <script>
   import navbar from "./Navbar"
   import keep from "./Keep"
+  import vault from "./Vault"
   export default {
     name: 'Home',
     mounted() {
+      this.$store.dispatch('authenticate')
       this.$store.dispatch("getKeeps")
     },
     data() {
@@ -31,11 +33,15 @@
       keeps(){
         return this.$store.state.keeps
       },
+      vaults() {
+        return this.$store.state.vaults
+      },
     },
     components: {
       navbar,
-      keep
-    }
+      keep,
+      vault
+    },
   }
 </script>
 

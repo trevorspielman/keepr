@@ -92,6 +92,7 @@ export default new vuex.Store({
       myDB.get('vaults/' + payload)
         .then(res => {
           commit('setVault', res.data)
+          dispatch('getVaultKeeps', res.data.id)
         })
         .catch(err => {
           console.log(err)
@@ -108,6 +109,17 @@ export default new vuex.Store({
           console.log(err)
         })
     },
+    addToVault({ commit, dispatch, state }, payload) {
+      myDB.post('vaultkeeps', { userId: payload.user.id, keepId: payload.keep.id, vaultId: payload.vault.id })
+        .then(res => {
+          console.log(res.data)
+          // dispatch('getVaultKeeps', res.data.vaultId)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+
     getVaultKeeps({commit, dispatch, state}, payload){
       myDB.get('vaultkeeps/' + payload, payload)
       .then(res=>{
@@ -161,8 +173,8 @@ export default new vuex.Store({
         if (res.data == "") {
           router.push({ name: 'Home' })
         }
-        else {
-          router.push({ name: 'Profile' })
+        else{
+          dispatch("getMyVaults", res.data.id)
         }
       })
         .catch(err => {

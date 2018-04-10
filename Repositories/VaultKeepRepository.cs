@@ -55,7 +55,7 @@ namespace keepr.Repositories
           keep.name,
           keep.description,
           keep.picture,
-          keep.userId
+          keep.userId,
           keep.id
         FROM vaultKeeps vaultKeep
         JOIN keeps keep ON keep.id = vaultKeep.keepId

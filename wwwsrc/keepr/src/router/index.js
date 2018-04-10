@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from '@/components/Home'
 import Profile from '@/components/Profile'
 import Vault from '@/components/Vault'
+import Keep from '@/components/Keep'
 
 
 Vue.use(Router)
