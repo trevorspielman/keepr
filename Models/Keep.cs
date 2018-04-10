@@ -14,6 +14,7 @@ namespace keepr.Models
     public string Description { get; set; }
     public string Picture { get; set; }
     public int Saves { get; set; }
+    public int Views { get; set; }
     public string UserId { get; set; }
   }
   public class CreateKeep

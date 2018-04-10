@@ -1,5 +1,6 @@
 <template>
-  <div class="Keep col-sm-3">
+  <div class="SingleKeep col-sm-3">
+    <navbar></navbar>
     <h3>{{keep.name}}</h3>
     <p>{{keep.description}}</p>
     <p>Saves: {{keep.saves}}</p>
@@ -12,17 +13,16 @@
         <a class="dropdown-item" href="#" v-for="vault in vaults" @click="addToVault({user: user, keep: keep, vault: vault})">{{vault.name}}</a>
       </div>
     </div>
-    <router-link :to="{ name: 'SingleKeep', params: { keepId: keep.id } }">
-    <button class="btn btn-success">View</button>
-  </router-link>
   </div>
 </template>
 
 <script>
+  import navbar from "./Navbar"
   export default {
-    name: 'Keep',
-    props: ['keep'],
+    name: 'SingleKeep',
+    // props: ['keep'],
     mounted() {
+      this.$store.dispatch('getKeep', this.$route.params.keepId)
     },
     data() {
       return {
@@ -41,8 +41,12 @@
       user() {
         return this.$store.state.user
       },
+      keep(){
+        return this.$store.state.keep
+      }
     },
     components: {
+      navbar,
     }
   }
 </script>

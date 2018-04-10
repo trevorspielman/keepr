@@ -49,6 +49,7 @@ namespace keepr.Repositories
         Name = keep.Name,
         Description = keep.Description,
         Saves = 0,
+        Views = 0,
         UserId = keep.UserId,
       };
     }
@@ -64,6 +65,7 @@ namespace keepr.Repositories
         Name = keep.Name,
         Description = keep.Description,
         Saves = keep.Saves,
+        Views = keep.Views,
         UserId = keep.UserId,
       };
     }
@@ -87,6 +89,7 @@ namespace keepr.Repositories
       name = @Name,
       description = @Description,
       saves = @Saves,
+      views = @Views,
       userId = @UserId
       WHERE id = @Id
       ", keep);
