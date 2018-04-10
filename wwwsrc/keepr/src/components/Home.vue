@@ -3,8 +3,8 @@
     <div class="row">
       <navbar></navbar>
     </div>
-    <div class="row" v-for="keep in keeps">
-      <keep :keep="keep"></keep>
+    <div class="row">
+      <keep :keep="keep"  v-for="keep in keeps"></keep>
     </div>
   </div>
 </template>

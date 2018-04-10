@@ -4,17 +4,21 @@
     <p>{{keep.description}}</p>
     <p>Saves: {{keep.saves}}</p>
     <p>Views: {{keep.views}}</p>
-    <div class="dropdown">
-      <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown">
-        Add to Vault
-      </button>
-      <div class="dropdown-menu">
-        <a class="dropdown-item" href="#" v-for="vault in vaults" @click="addToVault({user: user, keep: keep, vault: vault})">{{vault.name}}</a>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="dropdown">
+          <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown">
+            Add to Vault
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#" v-for="vault in vaults" @click="addToVault({user: user, keep: keep, vault: vault})">{{vault.name}}</a>
+          </div>
+        </div>
+        <router-link :to="{ name: 'SingleKeep', params: { keepId: keep.id } }">
+          <button class="btn btn-success" @click="viewKeep(keep)">View</button>
+        </router-link>
       </div>
     </div>
-    <router-link :to="{ name: 'SingleKeep', params: { keepId: keep.id } }">
-    <button class="btn btn-success">View</button>
-  </router-link>
   </div>
 </template>
 
@@ -32,6 +36,10 @@
     methods: {
       addToVault({ user: user, keep: keep, vault: vault }) {
         this.$store.dispatch('addToVault', { user: user, keep: keep, vault: vault })
+      },
+      viewKeep(keep){
+        keep.views += 1
+        this.$store.dispatch('updateKeep', keep)
       }
     },
     computed: {

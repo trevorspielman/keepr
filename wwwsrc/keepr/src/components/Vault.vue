@@ -6,9 +6,9 @@
         <h3>{{vault.name}}</h3>
         <p>{{vault.description}}</p>
       </div>
-      <div class="row" v-for="keep in vaultKeeps">
-        <keep :keep="keep"></keep>
-      </div>
+    </div>
+    <div class="row">
+      <keep :keep="keep" v-for="keep in vaultKeeps"></keep>
     </div>
   </div>
 </template>
@@ -34,7 +34,7 @@
       vault() {
         return this.$store.state.vault
       },
-      vaultKeeps(){
+      vaultKeeps() {
         return this.$store.state.vaultKeeps
       },
       vaults() {

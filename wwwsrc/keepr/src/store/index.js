@@ -67,8 +67,6 @@ export default new vuex.Store({
       myDB.get('keeps/' + payload)
         .then(res => {
           commit('setKeep', res.data)
-         res.data.views += 1
-          dispatch('updateKeep', res.data)
         })
         .catch(err => {
           console.log(err)
