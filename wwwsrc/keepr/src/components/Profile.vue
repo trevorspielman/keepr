@@ -6,14 +6,21 @@
         <h1>Welcome {{user.username}}</h1>
         <button class="btn btn-info" data-toggle="modal" data-target="#createVault">Create Vault</button>
         <button class="btn btn-danger" data-toggle="modal" data-target="#createKeep">Create Keep</button>
+        <button type="button" class="btn btn-success" @click="setDisplayVault">Vaults</button>
+        <button type="button" class="btn btn-danger" @click="setDisplayKeep">Keeps</button>
       </div>
     </div>
-    <div class="row" v-for="vault in vaults">
-      <router-link :to="{ name: 'Vault', params: { vaultId: vault.id } }">
-        <h3>{{vault.name}}</h3>
-      </router-link>
-      <p>{{vault.description}}</p>
+    <div v-if="this.display.showing == 'vault'">
+      <div class="row" v-for="vault in vaults">
+        <router-link :to="{ name: 'Vault', params: { vaultId: vault.id } }">
+          <h3>{{vault.name}}</h3>
+        </router-link>
+        <p>{{vault.description}}</p>
+      </div>
     </div>
+    <div class="row" v-else >
+        <keep :keep="keep"  v-for="keep in keeps" v-if="keep.userId == user.id"></keep>
+      </div>
     <!-- Create Vault Modal -->
     <div class="modal fade" id="createVault" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
@@ -50,7 +57,7 @@
               <textarea v-model="newKeep.description" placeholder="Description" rows="4"></textarea>
               <input type="text" v-model="newKeep.picture" placeholder="Image Url">
               <select class="custom-select" v-model="tempVaultId.vaultId">
-                <option v-for="vault in vaults" :value="vault.id" >{{vault.name}}</option>
+                <option v-for="vault in vaults" :value="vault.id">{{vault.name}}</option>
               </select>
               <button type="submit" class="btn btn-primary">Add Keep</button>
             </form>
@@ -64,11 +71,13 @@
 <script>
   import navbar from "./Navbar"
   import vault from "./Vault"
+  import keep from "./Keep"
   export default {
     name: 'Profile',
     mounted() {
       this.$store.dispatch('authenticate')
       this.$store.dispatch("getMyVaults", this.$store.state.user.id)
+      this.$store.dispatch("getKeeps")
     },
     data() {
       return {
@@ -83,6 +92,9 @@
         },
         tempVaultId: {
           vaultId: ""
+        },
+        display: {
+          showing: "vault"
         }
       }
     },
@@ -93,8 +105,14 @@
       },
       createKeep() {
         this.newKeep.UserId = this.$store.state.user.id
-        this.$store.dispatch('createKeep', {keep: this.newKeep, vault: this.tempVaultId.vaultId})
-      }
+        this.$store.dispatch('createKeep', { keep: this.newKeep, vault: this.tempVaultId.vaultId })
+      },
+      setDisplayKeep() {
+        this.display.showing = "keep"
+      },
+      setDisplayVault() {
+        this.display.showing = "vault"
+      },
     },
     computed: {
       user() {
@@ -103,6 +121,9 @@
       vaults() {
         return this.$store.state.vaults
       },
+      keeps() {
+        return this.$store.state.keeps
+      }
     },
     beforeRouteUpdate(to, from, next) {
       this.getMyVaults = this.getMyVaults(to.params.profileId)
@@ -110,7 +131,8 @@
     },
     components: {
       navbar,
-      vault
+      vault,
+      keep
     },
   }
 </script>
