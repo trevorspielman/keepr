@@ -5,21 +5,29 @@
     </div>
     <div class="row">
       <div class="col-sm-12">
-        <h3>{{keep.name}}</h3>
-        <img :src="keep.picture" alt="">
-        <p>{{keep.description}}</p>
-        <p>Saves: {{keep.saves}}</p>
-        <p>Views: {{keep.views}}</p>
-        <div class="dropdown">
-          <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown">
-            Add to Vault
-          </button>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="#" v-for="vault in vaults" @click="addToVault({user: user, keep: keep, vault: vault})">{{vault.name}}</a>
+        <div class="header">
+          <div class="div">
+            <h3>{{keep.name}}</h3>
+            <i class="fas fa-bookmark fa-2x"> {{keep.saves}}</i>
+            <i class="fas fa-eye fa-2x"> {{keep.views}}</i>
+          </div>
+          <div class="buttons">
+            <div class="dropdown">
+              <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown">
+                Add to Vault
+              </button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#" v-for="vault in vaults" @click="addToVault({user: user, keep: keep, vault: vault})">{{vault.name}}</a>
+              </div>
+            </div>
+            <button class="btn btn-outline-danger" data-toggle="modal" data-target="#editKeep" v-if="keep.userId == user.id">Edit</button>
+            <i class="fas fa-trash fa-2x" @click="removeKeep(keep)" v-if="keep.public == 1"></i>
           </div>
         </div>
-        <button class="btn btn-outline-danger" data-toggle="modal" data-target="#editKeep" v-if="keep.userId == user.id">Edit</button>
-        <i class="fas fa-trash" @click="removeKeep(keep)" v-if="keep.public == 1"></i>
+        <p>{{keep.description}}</p>
+      </div>
+      <div class="col-sm-12">
+        <img :src="keep.picture" alt="">
       </div>
     </div>
 
@@ -29,7 +37,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Edit Keep</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="close" data-dismiss="modal">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -116,4 +124,15 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  img {
+    display: flex;
+    max-width: 90vw;
+    align-self: center;
+    margin: 1rem 2rem 2rem 2rem;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+  }
 </style>
