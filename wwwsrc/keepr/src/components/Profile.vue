@@ -18,9 +18,9 @@
         <p>{{vault.description}}</p>
       </div>
     </div>
-    <div class="row" v-else >
-        <keep :keep="keep"  v-for="keep in keeps" v-if="keep.userId == user.id"></keep>
-      </div>
+    <div class="row" v-else>
+      <keep :keep="keep" v-for="keep in keeps" v-if="keep.userId == user.id"></keep>
+    </div>
     <!-- Create Vault Modal -->
     <div class="modal fade" id="createVault" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
@@ -53,12 +53,30 @@
           </div>
           <div class="modal-body">
             <form action="submit" @submit.prevent="createKeep">
-              <input type="text" v-model="newKeep.name" placeholder="Name">
-              <textarea v-model="newKeep.description" placeholder="Description" rows="4"></textarea>
-              <input type="text" v-model="newKeep.picture" placeholder="Image Url">
-              <select class="custom-select" v-model="tempVaultId.vaultId">
-                <option v-for="vault in vaults" :value="vault.id">{{vault.name}}</option>
-              </select>
+              <div class="form-row">
+                <div class="form-group col-sm-6">
+                  <input type="text" v-model="newKeep.name" placeholder="Name">
+                  <input type="text" v-model="newKeep.picture" placeholder="Image Url">
+                </div>
+                <div class="form-group col-sm-6">
+                  <textarea v-model="newKeep.description" placeholder="Description" rows="4"></textarea>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-sm-4">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="private" v-model="newKeep.public">
+                    <label class="form-check-label" for="private">
+                      Private?
+                    </label>
+                  </div>
+                </div>
+                <div class="form-group col-sm-8">
+                  <select class="custom-select" v-model="tempVaultId.vaultId">
+                    <option v-for="vault in vaults" :value="vault.id">{{vault.name}}</option>
+                  </select>
+                </div>
+              </div>
               <button type="submit" class="btn btn-primary">Add Keep</button>
             </form>
           </div>
@@ -89,6 +107,7 @@
           name: "",
           description: "",
           picture: "",
+          public: false
         },
         tempVaultId: {
           vaultId: ""
@@ -104,7 +123,14 @@
         this.$store.dispatch('createVault', this.newVault)
       },
       createKeep() {
+        if(!this.newKeep.public){
+          this.newKeep.public = 0
+        }
+        else{
+          this.newKeep.public = 1
+        }
         this.newKeep.UserId = this.$store.state.user.id
+        console.log(this.newKeep)
         this.$store.dispatch('createKeep', { keep: this.newKeep, vault: this.tempVaultId.vaultId })
       },
       setDisplayKeep() {

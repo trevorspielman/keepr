@@ -1,6 +1,7 @@
 <template>
   <div class="Keep col-sm-3">
     <h3>{{keep.name}}</h3>
+    <img :src="keep.picture" alt="">
     <p>{{keep.description}}</p>
     <p>Saves: {{keep.saves}}</p>
     <p>Views: {{keep.views}}</p>

@@ -29,6 +29,8 @@ namespace keepr.Repositories
         Id = id,
         Name = keepData.Name,
         Description = keepData.Description,
+        Picture = keepData.Picture,
+        Public = keepData.Public,
         UserId = keepData.UserId,
       };
       int success = _db.Execute(@"
@@ -36,9 +38,11 @@ namespace keepr.Repositories
           id,
           name,
           description,
+          picture,
+          public,
           userId
               )
-          VALUES (@Id, @Name, @Description, @UserId)", keep);
+          VALUES (@Id, @Name, @Description, @Picture, @Public, @UserId)", keep);
       if (success < 1)
       {
         throw new Exception("Keep already Created");
@@ -50,6 +54,7 @@ namespace keepr.Repositories
         Description = keep.Description,
         Saves = 0,
         Views = 0,
+        Public = keep.Public,
         UserId = keep.UserId,
       };
     }
@@ -64,8 +69,10 @@ namespace keepr.Repositories
         Id = keep.Id,
         Name = keep.Name,
         Description = keep.Description,
+        Picture = keep.Picture,
         Saves = keep.Saves,
         Views = keep.Views,
+        Public = keep.Public,
         UserId = keep.UserId,
       };
     }
@@ -88,8 +95,10 @@ namespace keepr.Repositories
       UPDATE keeps SET
       name = @Name,
       description = @Description,
+      picture = @Picture,
       saves = @Saves,
       views = @Views,
+      public = @public,
       userId = @UserId
       WHERE id = @Id
       ", keep);

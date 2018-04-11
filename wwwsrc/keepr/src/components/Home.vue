@@ -4,7 +4,7 @@
       <navbar></navbar>
     </div>
     <div class="row">
-      <keep :keep="keep"  v-for="keep in keeps"></keep>
+      <keep :keep="keep"  v-for="keep in keeps" v-if="keep.public == 0"></keep>
     </div>
   </div>
 </template>
