@@ -100,6 +100,7 @@
       },
       login() {
         this.$store.dispatch('login', this.loginUser)
+        $('#login').modal('hide')
       },
       logout() {
         this.$store.dispatch('logout')

@@ -181,7 +181,7 @@ export default new vuex.Store({
       auth.post('login', payload)
         .then(res => {
           commit('updateUser', res.data)
-          router.push({ name: 'Profile', params: { profileId: state.user.id } })
+          // router.push({ name: 'Profile', params: { profileId: state.user.id } })
         })
         .catch(err => {
           console.error(err)
