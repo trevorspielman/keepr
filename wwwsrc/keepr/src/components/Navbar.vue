@@ -10,7 +10,7 @@
       <h1>Please Register:</h1>
       <div>
         <form action="submit" @submit.prevent="register">
-          <input type="text" v-model="newUser.name" placeholder="Name">
+          <input type="text" v-model="newUser.userName" placeholder="Name">
           <input type="text" v-model="newUser.email" placeholder="Email" required>
           <input type="password" v-model="newUser.password" placeholder="Password" required>
           <button class="btn btn-primary" type="submit">Register</button>
@@ -40,7 +40,7 @@
     data() {
       return {
         newUser: {
-          name: '',
+          username: '',
           email: '',
           password: ''
         },

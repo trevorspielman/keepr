@@ -158,9 +158,9 @@ export default new vuex.Store({
     createUser({ commit, dispatch, state }, payload) {
       auth.post('register', payload)
         .then(res => {
-          delete res.data.Name
-          delete res.data.Id
-          res.data.Password = payload.password
+          delete res.data.username
+          delete res.data.id
+          res.data.password = payload.password
           dispatch('login', res.data)
         })
         .catch(err => {
