@@ -26,10 +26,12 @@
         </div>
         <p>{{keep.description}}</p>
       </div>
-      <div class="col-sm-12">
-        <img :src="keep.picture" alt="">
-      </div>
     </div>
+      <div class="row">
+        <div class="col-sm-12 image">
+          <img :src="keep.picture" alt="">
+        </div>
+      </div>
 
     <!-- MODAL CONTENT -->
     <div class="modal fade" id="editKeep" tabindex="-1" role="dialog">
@@ -129,6 +131,12 @@
     max-width: 90vw;
     align-self: center;
     margin: 1rem 2rem 2rem 2rem;
+  }
+
+  .image {
+    display: flex;
+    align-content: center;
+    justify-content: center;
   }
 
   .header {
