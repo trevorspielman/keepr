@@ -67,7 +67,8 @@
           </div>
         </div>
       </div>
-      <div v-else>
+      <div class="v-else" v-else>
+        <h1>{{user.username}}</h1>
         <button class="btn btn-danger" @click="logout">Log Out</button>
       </div>
     </nav>
@@ -114,4 +115,12 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  h1 {
+    color: white;
+    margin-right: 2rem;
+  }
+
+  .v-else {
+    display: inline-flex;
+  }
 </style>
