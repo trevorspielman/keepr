@@ -4,7 +4,7 @@
       <navbar></navbar>
     </div>
     <div class="row">
-      <keep :keep="keep"  v-for="keep in keeps" v-if="keep.public == 0"></keep>
+      <keep :keep="keep" v-for="keep in keeps" v-if="keep.public == 0"></keep>
     </div>
   </div>
 </template>
@@ -27,10 +27,10 @@
 
     },
     computed: {
-      user(){
+      user() {
         return this.$store.state.user
       },
-      keeps(){
+      keeps() {
         return this.$store.state.keeps
       },
       vaults() {

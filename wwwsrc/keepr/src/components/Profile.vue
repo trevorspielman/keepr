@@ -2,16 +2,22 @@
   <div class="Profile container-fluid">
     <div class="row">
       <navbar></navbar>
-      <div class="col-sm-12">
+    </div>
+    <div class="row">
+      <div class="col-sm-12 header">
+        <div>
+          <button type="button" class="btn btn-success" @click="setDisplayVault">Vaults</button>
+          <button type="button" class="btn btn-danger" @click="setDisplayKeep">Keeps</button>
+        </div>
         <h1>Welcome {{user.username}}</h1>
-        <button class="btn btn-info" data-toggle="modal" data-target="#createVault">Create Vault</button>
-        <button class="btn btn-danger" data-toggle="modal" data-target="#createKeep">Create Keep</button>
-        <button type="button" class="btn btn-success" @click="setDisplayVault">Vaults</button>
-        <button type="button" class="btn btn-danger" @click="setDisplayKeep">Keeps</button>
+        <div>
+          <button class="btn btn-info" data-toggle="modal" data-target="#createVault">Create Vault</button>
+          <button class="btn btn-danger" data-toggle="modal" data-target="#createKeep">Create Keep</button>
+        </div>
       </div>
     </div>
-    <div v-if="this.display.showing == 'vault'">
-      <div class="row" v-for="vault in vaults">
+    <div class="row" v-if="this.display.showing == 'vault'">
+      <div class="col-sm-4" v-for="vault in vaults">
         <router-link :to="{ name: 'Vault', params: { vaultId: vault.id } }">
           <h3>{{vault.name}}</h3>
         </router-link>
@@ -123,10 +129,10 @@
         this.$store.dispatch('createVault', this.newVault)
       },
       createKeep() {
-        if(!this.newKeep.public){
+        if (!this.newKeep.public) {
           this.newKeep.public = 0
         }
-        else{
+        else {
           this.newKeep.public = 1
         }
         this.newKeep.UserId = this.$store.state.user.id
@@ -165,4 +171,10 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  .header {
+    display: inline-flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 5rem;
+  }
 </style>

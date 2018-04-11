@@ -37,7 +37,7 @@ export default new vuex.Store({
     setKeeps(state, payload) {
       state.keeps = payload
     },
-    setKeep(state, payload){
+    setKeep(state, payload) {
       state.keep = payload
     },
     setMyVaults(state, payload) {
@@ -46,7 +46,7 @@ export default new vuex.Store({
     setVault(state, payload) {
       state.vault = payload
     },
-    setVaultKeeps(state, payload){
+    setVaultKeeps(state, payload) {
       state.vaultKeeps = payload
     }
 
@@ -82,14 +82,23 @@ export default new vuex.Store({
           console.log(err)
         })
     },
-    updateKeep({commit, dispatch, state}, payload){
+    updateKeep({ commit, dispatch, state }, payload) {
       myDB.put('keeps/' + payload.id, payload)
-      .then(res=>{
-        dispatch('getKeeps')
-      })
-      .catch(err => {
-        console.log(err)
-      })
+        .then(res => {
+          dispatch('getKeeps')
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    removeKeep({ commit, dispatch, state }, payload) {
+      myDB.delete('keeps/' + payload.id)
+        .then(res => {
+          router.push({ name: 'Profile', params: { profileId: state.user.id } })
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
 
     //Vault Actions
@@ -133,8 +142,8 @@ export default new vuex.Store({
     },
     addToVault({ commit, dispatch, state }, payload) {
       myDB.post('vaultkeeps', { userId: payload.user.id, keepId: payload.keep.id, vaultId: payload.vault.id })
-      .then(res => {
-        payload.keep.saves += 1
+        .then(res => {
+          payload.keep.saves += 1
           dispatch('updateKeep', payload.keep)
         })
         .catch(err => {
@@ -142,14 +151,14 @@ export default new vuex.Store({
         })
     },
 
-    getVaultKeeps({commit, dispatch, state}, payload){
+    getVaultKeeps({ commit, dispatch, state }, payload) {
       myDB.get('vaultkeeps/' + payload, payload)
-      .then(res=>{
-        commit('setVaultKeeps', res.data)
-      })
-      .catch(err => {
-        console.log(err)
-      })
+        .then(res => {
+          commit('setVaultKeeps', res.data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
 
 
@@ -194,7 +203,7 @@ export default new vuex.Store({
         if (res.data == "") {
           router.push({ name: 'Home' })
         }
-        else{
+        else {
           dispatch("getMyVaults", res.data.id)
         }
       })

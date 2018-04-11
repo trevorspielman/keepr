@@ -19,6 +19,7 @@
           </div>
         </div>
         <button class="btn btn-outline-danger" data-toggle="modal" data-target="#editKeep" v-if="keep.userId == user.id">Edit</button>
+        <i class="fas fa-trash" @click="removeKeep(keep)" v-if="keep.public == 1"></i>
       </div>
     </div>
 
@@ -33,7 +34,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <form action="submit" @submit.prevent="createKeep">
+            <form action="submit" @submit.prevent="editKeep(keep)">
               <div class="form-row">
                 <div class="form-group col-sm-6">
                   <input type="text" v-model="keep.name" placeholder="Name">
@@ -91,6 +92,9 @@
           this.keep.public = 1
         }
         this.$store.dispatch('updateKeep', keep)
+      },
+      removeKeep(keep) {
+        this.$store.dispatch('removeKeep', keep)
       }
     },
     computed: {
