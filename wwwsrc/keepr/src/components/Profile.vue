@@ -8,15 +8,16 @@
             <button type="button" class="btn btn-success" @click="setDisplayVault">Vaults</button>
             <button type="button" class="btn btn-danger" @click="setDisplayKeep">Keeps</button>
           </div>
-          <h1>Welcome {{user.username}}</h1>
-          <div>
+          <h1 v-if="this.$route.params.profileId == user.id">Welcome {{user.username}}</h1>
+          <h1 v-else="userProfile.id != user.id">{{userProfile.username}}'s  Profile</h1>
+          <div v-if="user.id == userProfile.id">
             <button class="btn btn-info" data-toggle="modal" data-target="#createVault">Create Vault</button>
             <button class="btn btn-danger" data-toggle="modal" data-target="#createKeep">Create Keep</button>
           </div>
         </div>
       </div>
       <div class="row" v-if="this.display.showing == 'vault'">
-        <div class="col-sm-4" v-for="vault in vaults">
+        <div class="col-sm-4" v-for="vault in profileVaults">
           <router-link :to="{ name: 'Vault', params: { vaultId: vault.id } }">
             <h3>{{vault.name}}</h3>
           </router-link>
@@ -24,7 +25,7 @@
         </div>
       </div>
       <div class="row" v-else>
-        <keep :keep="keep" v-for="keep in keeps" v-if="keep.userId == user.id"></keep>
+        <keep :keep="keep" v-for="keep in keeps" v-if="keep.userId == userProfile.id"></keep>
       </div>
       <!-- Create Vault Modal -->
       <div class="modal fade" id="createVault" tabindex="-1" role="dialog">
@@ -100,7 +101,8 @@
     name: 'Profile',
     mounted() {
       this.$store.dispatch('authenticate')
-      this.$store.dispatch("getVaults", this.$store.state.user.id)
+      this.$store.dispatch('getProfileUser', this.$route.params.profileId)
+      this.$store.dispatch("getProfileUserVaults", this.$route.params.profileId)
       this.$store.dispatch("getKeeps")
     },
     data() {
@@ -136,7 +138,6 @@
           this.newKeep.public = 1
         }
         this.newKeep.UserId = this.$store.state.user.id
-        console.log(this.newKeep)
         this.$store.dispatch('createKeep', { keep: this.newKeep, vault: this.tempVaultId.vaultId })
       },
       setDisplayKeep() {
@@ -145,6 +146,12 @@
       setDisplayVault() {
         this.display.showing = "vault"
       },
+      getProfileUser(userId) {
+        this.$store.dispatch('getProfileUser', userId)
+      },
+      getProfileUserVaults(userId){
+        this.$store.dispatch("getProfileUserVaults", userId)
+      }
     },
     computed: {
       user() {
@@ -153,12 +160,19 @@
       vaults() {
         return this.$store.state.vaults
       },
+      profileVaults() {
+        return this.$store.state.profileVaults
+      },
       keeps() {
         return this.$store.state.keeps
+      },
+      userProfile() {
+        return this.$store.state.userProfile
       }
     },
     beforeRouteUpdate(to, from, next) {
-      this.getMyVaults = this.getMyVaults(to.params.profileId)
+      this.getProfileUser = this.getProfileUser(to.params.profileId)
+      this.getProfileUserVaults = this.getProfileUserVaults(to.params.profileId)
       next()
     },
     components: {

@@ -25,6 +25,7 @@ export default new vuex.Store({
   state: {
     user: {},
     userProfile: {},
+    profileVaults: {},
     keeps: [],
     keep: {},
     vaults: [],
@@ -46,6 +47,9 @@ export default new vuex.Store({
     },
     setVaults(state, payload) {
       state.vaults = payload
+    },
+    setProfileVaults(state, payload){
+      state.profileVaults = payload
     },
     setVault(state, payload) {
       state.vault = payload
@@ -119,7 +123,7 @@ export default new vuex.Store({
     getProfileUserVaults({ commit, dispatch, state }, payload) {
       myDB.get('vaults/user/' + payload, payload)
         .then(res => {
-          commit('setVaults', res.data)
+          commit('setProfileVaults', res.data)
         })
         .catch(err => {
           console.log(err)
@@ -229,12 +233,9 @@ export default new vuex.Store({
         if (res.data == "") {
           router.push({ name: 'Home' })
         }
-        if (res.data.id != state.user.id) {
-          dispatch('getProfileUserVaults', res.data.id)
+        else {
+          dispatch("getVaults", res.data.id)
         }
-        // else {
-        //   dispatch("getVaults", res.data.id)
-        // }
       })
         .catch(err => {
           console.error(err);

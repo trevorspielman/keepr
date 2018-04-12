@@ -22,7 +22,7 @@
     name: 'Vault',
     mounted() {
       this.$store.dispatch("getVault", this.$route.params.vaultId)
-      this.$store.dispatch("getMyVaults", this.$store.state.user.id)
+      this.$store.dispatch("getVaults", this.$store.state.user.id)
     },
     data() {
       return {
