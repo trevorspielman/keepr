@@ -79,7 +79,7 @@
   export default {
     name: 'Navbar',
     mounted() {
-      this.$store.dispatch('authenticate')
+      // this.$store.dispatch('authenticate')
     },
     data() {
       return {

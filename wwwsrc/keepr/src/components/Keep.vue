@@ -9,7 +9,7 @@
         <i class="fas fa-eye fa-2x">   {{keep.views}}</i>
       </div>
       <div class="col-sm-12 hoverContent">
-        <div class="dropdown">
+        <div class="dropdown" v-if="user.id">
           <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown">
             Add to Vault
           </button>
