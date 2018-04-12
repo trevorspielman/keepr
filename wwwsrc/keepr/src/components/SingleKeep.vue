@@ -8,10 +8,11 @@
             <div class="div">
               <h3>{{keep.name}}</h3>
               <router-link :to="{ name: 'Profile', params: { profileId: this.keep.userId } }">
-                  <p>{{userProfile.username}}</p>
-                </router-link>
+                <p>{{userProfile.username}}</p>
+              </router-link>
               <i class="fas fa-bookmark fa-2x"> {{keep.saves}}</i>
               <i class="fas fa-eye fa-2x"> {{keep.views}}</i>
+              <i class="fas fa-share fa-2x"> {{keep.shares}}</i>
             </div>
             <div class="buttons">
               <div class="dropdown" v-if="user.id">
@@ -120,7 +121,7 @@
       keep() {
         return this.$store.state.keep
       },
-      userProfile(){
+      userProfile() {
         return this.$store.state.userProfile
       }
     },

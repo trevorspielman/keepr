@@ -59,7 +59,7 @@
 -- )
 
 -- ALTER TABLE keeps
--- MODIFY name VARCHAR(255) NOT NULL
+-- ADD shares int NOT NULL DEFAULT 0
 
 
 

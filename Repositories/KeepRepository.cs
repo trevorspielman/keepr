@@ -54,6 +54,7 @@ namespace keepr.Repositories
         Description = keep.Description,
         Saves = 0,
         Views = 0,
+        Shares = 0,
         Public = keep.Public,
         UserId = keep.UserId,
       };
@@ -72,6 +73,7 @@ namespace keepr.Repositories
         Picture = keep.Picture,
         Saves = keep.Saves,
         Views = keep.Views,
+        Shares = keep.Shares,
         Public = keep.Public,
         UserId = keep.UserId,
       };
@@ -98,6 +100,7 @@ namespace keepr.Repositories
       picture = @Picture,
       saves = @Saves,
       views = @Views,
+      shares = @Shares,
       public = @public,
       userId = @UserId
       WHERE id = @Id

@@ -4,9 +4,11 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
+import SocialSharing from 'vue-social-sharing'
 
 
 Vue.config.productionTip = false
+Vue.component('social-sharing', SocialSharing)
 
 /* eslint-disable no-new */
 new Vue({
