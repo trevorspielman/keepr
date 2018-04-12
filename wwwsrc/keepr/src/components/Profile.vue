@@ -9,7 +9,7 @@
             <button type="button" class="btn btn-danger" @click="setDisplayKeep">Keeps</button>
           </div>
           <h1 v-if="this.$route.params.profileId == user.id">Welcome {{user.username}}</h1>
-          <h1 v-else="userProfile.id != user.id">{{userProfile.username}}'s  Profile</h1>
+          <h1 v-else="userProfile.id != user.id">{{userProfile.username}}'s Profile</h1>
           <div v-if="user.id == userProfile.id">
             <button class="btn btn-info" data-toggle="modal" data-target="#createVault">Create Vault</button>
             <button class="btn btn-danger" data-toggle="modal" data-target="#createKeep">Create Keep</button>
@@ -129,6 +129,7 @@
       createVault() {
         this.newVault.UserId = this.$store.state.user.id
         this.$store.dispatch('createVault', this.newVault)
+        $('#createVault').modal('hide')
       },
       createKeep() {
         if (!this.newKeep.public) {
@@ -139,6 +140,7 @@
         }
         this.newKeep.UserId = this.$store.state.user.id
         this.$store.dispatch('createKeep', { keep: this.newKeep, vault: this.tempVaultId.vaultId })
+        $('#createKeep').modal('hide')
       },
       setDisplayKeep() {
         this.display.showing = "keep"
@@ -149,7 +151,7 @@
       getProfileUser(userId) {
         this.$store.dispatch('getProfileUser', userId)
       },
-      getProfileUserVaults(userId){
+      getProfileUserVaults(userId) {
         this.$store.dispatch("getProfileUserVaults", userId)
       }
     },

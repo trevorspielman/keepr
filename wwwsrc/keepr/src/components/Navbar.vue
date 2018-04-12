@@ -97,6 +97,7 @@
     methods: {
       register() {
         this.$store.dispatch('createUser', this.newUser)
+        $('#register').modal('hide')
       },
       login() {
         this.$store.dispatch('login', this.loginUser)

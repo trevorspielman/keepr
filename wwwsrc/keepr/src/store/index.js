@@ -134,7 +134,7 @@ export default new vuex.Store({
     createVault({ commit, dispatch, state }, payload) {
       myDB.post('vaults', payload)
         .then(res => {
-          dispatch('getVaults', res.data.userId)
+          dispatch('getProfileUserVaults', res.data.userId)
         })
         .catch(err => {
           console.log(err)

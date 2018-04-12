@@ -60,7 +60,7 @@ namespace keepr.Repositories
           keep.views,
           keep.public,
           keep.id
-        FROM vaultKeeps vaultKeep
+        FROM vaultkeeps vaultKeep
         JOIN keeps keep ON keep.id = vaultKeep.keepId
         WHERE vaultId = @id;
       ", new { id = vaultId });
