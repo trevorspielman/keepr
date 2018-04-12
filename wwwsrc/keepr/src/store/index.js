@@ -4,7 +4,7 @@ import axios from 'axios'
 import router from '../router'
 
 var production = !window.location.host.includes('localhost')
-var baseUrl = production ? '//https://trevorspielman.github.io/keepr/' : '//localhost:5000/'
+var baseUrl = production ? '//trevor-keepr.herokuapp.com/' : '//localhost:5000/'
 
 var myDB = axios.create({
   baseURL: baseUrl + 'api/',
