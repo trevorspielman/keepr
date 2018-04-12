@@ -21,7 +21,7 @@ namespace keepr
     public Startup(IConfiguration configuration)
     {
       Configuration = configuration;
-      _connectionString = configuration.GetSection("DB").GetValue<string>("mySQLConnectionString");
+      // _connectionString = configuration.GetSection("DB").GetValue<string>("mySQLConnectionString");
     }
 
     public IConfiguration Configuration { get; }
