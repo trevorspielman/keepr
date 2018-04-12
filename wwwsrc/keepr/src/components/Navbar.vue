@@ -1,5 +1,5 @@
 <template>
-  <div class="Navbar col-sm-12">
+  <div class="Navbar">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <h2 class="navbar-brand">Keepr</h2>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"

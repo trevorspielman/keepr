@@ -24,6 +24,7 @@ vue.use(vuex)
 export default new vuex.Store({
   state: {
     user: {},
+    userProfile: {},
     keeps: [],
     keep: {},
     vaults: [],
@@ -34,13 +35,16 @@ export default new vuex.Store({
     updateUser(state, payload) {
       state.user = payload
     },
+    publicUser(state, payload) {
+      state.userProfile = payload
+    },
     setKeeps(state, payload) {
       state.keeps = payload
     },
     setKeep(state, payload) {
       state.keep = payload
     },
-    setMyVaults(state, payload) {
+    setVaults(state, payload) {
       state.vaults = payload
     },
     setVault(state, payload) {
@@ -67,6 +71,7 @@ export default new vuex.Store({
       myDB.get('keeps/' + payload)
         .then(res => {
           commit('setKeep', res.data)
+          dispatch('getProfileUser', res.data.userId)
         })
         .catch(err => {
           console.log(err)
@@ -102,19 +107,30 @@ export default new vuex.Store({
     },
 
     //Vault Actions
-    getMyVaults({ commit, dispatch, state }, payload) {
+    getVaults({ commit, dispatch, state }, payload) {
       myDB.get('vaults/user/' + payload, payload)
         .then(res => {
-          commit('setMyVaults', res.data)
+          commit('setVaults', res.data)
         })
         .catch(err => {
           console.log(err)
         })
     },
+    getProfileUserVaults({ commit, dispatch, state }, payload) {
+      myDB.get('vaults/user/' + payload, payload)
+        .then(res => {
+          commit('setVaults', res.data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+
+
     createVault({ commit, dispatch, state }, payload) {
       myDB.post('vaults', payload)
         .then(res => {
-          dispatch('getMyVaults', res.data.userId)
+          dispatch('getVaults', res.data.userId)
         })
         .catch(err => {
           console.log(err)
@@ -162,6 +178,16 @@ export default new vuex.Store({
     },
 
 
+    getProfileUser({ commit, dispatch, state }, payload) {
+      auth.get('' + payload, payload)
+        .then(res => {
+          commit('publicUser', res.data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+
 
     //User Auth Methods
     createUser({ commit, dispatch, state }, payload) {
@@ -197,15 +223,18 @@ export default new vuex.Store({
           console.error(err)
         })
     },
-    authenticate({ commit, dispatch }, payload) {
+    authenticate({ commit, dispatch, state }, payload) {
       auth.get('authenticate', payload).then(res => {
         commit('updateUser', res.data)
         if (res.data == "") {
           router.push({ name: 'Home' })
         }
-        else {
-          dispatch("getMyVaults", res.data.id)
+        if (res.data.id != state.user.id) {
+          dispatch('getProfileUserVaults', res.data.id)
         }
+        // else {
+        //   dispatch("getVaults", res.data.id)
+        // }
       })
         .catch(err => {
           console.error(err);

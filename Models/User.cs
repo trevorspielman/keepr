@@ -59,6 +59,8 @@ namespace keepr.Models
   public class UserPublicModel
   {
     public string Username { get; set; }
+    public string Id { get; set; }
+
   }
   public class ChangeUserPasswordModel
   {

@@ -1,10 +1,10 @@
 <template>
-  <div class="home container-fluid">
-    <div class="row">
-      <navbar></navbar>
-    </div>
-    <div class="row">
-      <keep :keep="keep" v-for="keep in keeps" v-if="keep.public == 0"></keep>
+  <div class="home">
+    <navbar></navbar>
+    <div class="container-fluid">
+      <div class="row">
+        <keep :keep="keep" v-for="keep in keeps" v-if="keep.public == 0"></keep>
+      </div>
     </div>
   </div>
 </template>

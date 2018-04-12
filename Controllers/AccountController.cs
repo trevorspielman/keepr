@@ -109,5 +109,11 @@ namespace keepr.Controllers
         return _repo.GetUserById(id);
       }
     }
+
+    [HttpGet("{id}")]
+    public UserPublicModel GetPublicUserById(string id)
+    {
+      return _repo.GetPublicUserById(id);
+    }
   }
 }

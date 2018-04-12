@@ -81,6 +81,20 @@ namespace keepr.Repositories
       };
     }
 
+    public UserPublicModel GetPublicUserById(string id)
+    {
+      User user = _db.QueryFirstOrDefault<User>(@"
+      SELECT * FROM users WHERE id = @Id
+      ", new { Id = id });
+
+      if (user == null) { throw new Exception("Oh Boy, something very bad happened. Hacking in session"); }
+      return new UserPublicModel()
+      {
+        Id = user.Id,
+        Username = user.Username,
+      };
+    }
+
     public UserReturnModel UpdateAccount(UserReturnModel user, UserReturnModel userData)
     {
       var i = _db.Execute(@"

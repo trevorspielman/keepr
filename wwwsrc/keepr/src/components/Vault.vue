@@ -1,14 +1,16 @@
 <template>
-  <div class="Vault container-fluid">
-    <div class="row">
-      <navbar></navbar>
-      <div class="col-sm-12">
-        <h3>{{vault.name}}</h3>
-        <p>{{vault.description}}</p>
+  <div class="Vault">
+    <navbar></navbar>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12">
+          <h3>{{vault.name}}</h3>
+          <p>{{vault.description}}</p>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <keep :keep="keep" v-for="keep in vaultKeeps"></keep>
+      <div class="row">
+        <keep :keep="keep" v-for="keep in vaultKeeps"></keep>
+      </div>
     </div>
   </div>
 </template>
