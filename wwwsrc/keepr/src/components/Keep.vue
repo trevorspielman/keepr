@@ -10,8 +10,8 @@
         <i class="fas fa-share fa-2x"> {{keep.shares}}</i>
       </div>
       <div class="col-sm-12 hoverContent">
+        <button class="btn btn-danger mr-2" data-toggle="modal" :data-target="'#share' + keep.id">Share</button>
         <div class="dropdown" v-if="user.id">
-          <button class="btn btn-danger mr-2" data-toggle="modal" :data-target="'#share' + keep.id">Share</button>
           <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown">
             Add to Vault
           </button>
@@ -38,7 +38,7 @@
             <social-sharing @open="shareKeep(keep)" :url="url" :title="keep.name" :description="keep.description"
               :quote="keep.description" :hashtags="keep.name"
               inline-template>
-              <div>
+              <div class="d-flex flex-column align-items-center">
                 <network network="email">
                   <i class="fa fa-envelope"></i> Email
                 </network>
