@@ -17,7 +17,7 @@ namespace keepr
 {
   public class Startup
   {
-    private readonly string _connectionString = "";
+    private readonly string _connectionString = "server=sql3.freemysqlhosting.net;port=3306;database=sql3232284;user id=sql3232284;password=K5Lf134PyY; Allow User Variables=True";
     public Startup(IConfiguration configuration)
     {
       Configuration = configuration;

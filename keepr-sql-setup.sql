@@ -8,23 +8,26 @@
 -- );
 
 -- CREATE TABLE vaults (
-    -- id VARCHAR(255) NOT NULL,
-    -- name VARCHAR(20) NOT NULL,
-    -- description VARCHAR(255) NOT NULL,
-    -- userId VARCHAR(255) NOT NULL,
-    -- INDEX userId (userId),
-    -- FOREIGN KEY (userId)
-    --     REFERENCES users(id)
-    --     ON DELETE CASCADE,  
-    -- PRIMARY KEY (id)
+--     id VARCHAR(255) NOT NULL,
+--     name VARCHAR(20) NOT NULL,
+--     description VARCHAR(255) NOT NULL,
+--     userId VARCHAR(255) NOT NULL,
+--     INDEX userId (userId),
+--     FOREIGN KEY (userId)
+--         REFERENCES users(id)
+--         ON DELETE CASCADE,  
+--     PRIMARY KEY (id)
 -- );
 
 -- CREATE TABLE keeps (
 --     id VARCHAR(255) NOT NULL,
 --     name VARCHAR(20) NOT NULL,
 --     description VARCHAR(255) NOT NULL,
---     saves int NOT NULL,
+--     saves int NOT NULL DEFAULT 0,
 --     userId VARCHAR(255) NOT NULL,
+--     picture VARCHAR(255),
+--     views int NOT NULL DEFAULT 0,
+--     public int NOT NULL DEFAULT 0,
 --     INDEX userId (userId),
 --     FOREIGN KEY (userId)
 --         REFERENCES users(id)
